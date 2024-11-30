@@ -436,6 +436,18 @@ class AppSettings(AppLoggingSettings):
     """
 
     # ===============================================
+    # Text to speech
+    TEXT_TO_SPEECH_URI: str | None = None
+    """
+    The URI to connect to the text to speech service through the wyoming protocol
+    Accepts tcp:// unix:// or stdio://
+    """
+    TEXT_TO_SPEECH_VOICE: str | None = None
+    """
+    The name of the voice to use for TTS
+    """
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
