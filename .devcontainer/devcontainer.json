@@ -55,5 +55,8 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "dockerDashComposeVersion": "v2"
     }
-  }
+  },
+  "runArgs": [
+    "--add-host=host.docker.internal:host-gateway"
+  ]
 }

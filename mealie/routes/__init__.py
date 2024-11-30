@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from mealie.routes import voice
+
 from . import (
     admin,
     app,
@@ -33,3 +35,4 @@ router.include_router(unit_and_foods.router)
 router.include_router(admin.router)
 router.include_router(validators.router)
 router.include_router(explore.router)
+router.include_router(voice.router)
