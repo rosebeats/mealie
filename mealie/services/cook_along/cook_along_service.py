@@ -49,5 +49,5 @@ class CookAlongService(BaseService):
         if response is None:
             return None
         self.message_history.append(question_obj)
-        self.message_history.append(response)
+        self.message_history.append(response.to_dict())
         return response.content

@@ -17,7 +17,10 @@ class CookAlongManager(BaseService):
         self.recipe_service = recipe_service
         super().__init__()
 
-    def get_cook_along_service(self, slug: str) -> CookAlongService:
+    def try_get_service(self, slug: str) -> CookAlongService | None:
+        return self.cook_along_services.get(slug)
+
+    def get_or_create_service(self, slug: str) -> CookAlongService:
         if slug not in self.cook_along_services:
             self.cook_along_services[slug] = CookAlongService(self.recipe_service.get_one(slug), self.messaging_service)
         return self.cook_along_services[slug]
