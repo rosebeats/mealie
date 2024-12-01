@@ -14,12 +14,16 @@ router = UserAPIRouter(prefix="/tts", tags=["Utils: Text to Speech"])
 
 @controller(router)
 class TTSController(BasePublicController):
+    """Controller for text to speech API"""
+
     @cached_property
     def service(self) -> TTSService:
+        """The text to speech service"""
         return TTSService()
 
     @router.post("")
     async def text_to_speech(self, text: str):
+        """Convert passed in text into speech"""
         try:
             async with self.service as service:
                 filename = await service.synthesize(text)

@@ -11,33 +11,43 @@ SAMPLES_PER_CHUNK = 1024
 
 
 class STTService(BaseService):
+    """A service for performing speech to text conversion"""
+
     client: AsyncClient
+    """The wyoming protocol client providing speech to text"""
     connected: bool = False
+    """Whether the client is connected"""
 
     def __init__(self):
+        """Initialize the speech to text client"""
         super().__init__()
         self.client = AsyncClient.from_uri(self.settings.SPEECH_TO_TEXT_URI)
 
     async def __aenter__(self):
+        """Set up a connection asyncronously"""
         await self.connect()
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback):
+        """Set up a connection asyncronously"""
         await self.disconnect()
 
     async def connect(self):
+        """Set up a connection asyncronously"""
         if self.connected:
             return
         await self.client.connect()
         self.connected = True
 
     async def disconnect(self):
+        """Destroy the connection asyncronously"""
         if not self.connected:
             return
         await self.client.disconnect()
         self.connected = False
 
     async def transcribe(self, audio: UploadFile) -> str | None:
+        """Transcribe an uploaded audio file to text"""
         transcribe_event = Transcribe(self.settings.SPEECH_TO_TEXT_MODEL, self.settings.SPEECH_TO_TEXT_LANGUAGE)
         await self.client.write_event(transcribe_event.event())
         with wave.open(audio.file, "rb") as audio_file:
