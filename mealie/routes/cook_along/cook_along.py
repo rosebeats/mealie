@@ -20,6 +20,7 @@ class CookAlongController(BaseUserController):
 
     @router.post("/{slug}", response_model=AIAssistantMessage)
     async def cook_along(self, slug: str, question: AIUserMessage):
+        """Asks OpenAI a new question about the recipe and returns an answer"""
         try:
             service = self.manager.get_or_create_service(slug)
         except exceptions.NoEntryFound as exc:
@@ -28,6 +29,7 @@ class CookAlongController(BaseUserController):
 
     @router.get("/{slug}", response_model=list[AIAssistantMessage | AIUserMessage])
     async def get_message_history(self, slug: str):
+        """Gets the full history of messages between the user and assistant about this recipe"""
         service = self.manager.try_get_service(slug)
         if service is None or len(service.message_history) == 0:
             raise HTTPException(status_code=404, detail="no message history for this recipe")
@@ -35,6 +37,7 @@ class CookAlongController(BaseUserController):
 
     @router.delete("/{slug}", status_code=204)
     async def delete_history(self, slug: str):
+        """Clear the message history for this recipe"""
         service = self.manager.try_get_service(slug)
         if service is None:
             raise HTTPException(status_code=404, detail="no message history for this recipe")

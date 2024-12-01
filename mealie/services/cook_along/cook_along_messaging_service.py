@@ -7,9 +7,12 @@ from mealie.services.openai.openai import OpenAIService
 
 
 class CookAlongMessagingService(OpenAIService):
+    """Service for handling communication with OpenAI for the cook along service"""
+
     async def send_question(
         self, messages: Iterator[ChatCompletionMessageParam], temperature=0.2
     ) -> ChatCompletionMessage | None:
+        """Sends a list of messages to OpenAI and returns the completion message"""
         client = self.get_client()
         try:
             completion = await client.chat.completions.create(
