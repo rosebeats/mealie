@@ -420,6 +420,34 @@ class AppSettings(AppLoggingSettings):
         return self.OPENAI_FEATURE.enabled
 
     # ===============================================
+    # Speech to text
+    SPEECH_TO_TEXT_URI: str | None = None
+    """
+    The URI to connect to the speech to text service through the wyoming protocol
+    Accepts tcp:// unix:// or stdio://
+    """
+    SPEECH_TO_TEXT_MODEL: str | None = None
+    """
+    The name of the model to use for speech to text
+    """
+    SPEECH_TO_TEXT_LANGUAGE: str | None = None
+    """
+    The language of the speaker
+    """
+
+    # ===============================================
+    # Text to speech
+    TEXT_TO_SPEECH_URI: str | None = None
+    """
+    The URI to connect to the text to speech service through the wyoming protocol
+    Accepts tcp:// unix:// or stdio://
+    """
+    TEXT_TO_SPEECH_VOICE: str | None = None
+    """
+    The name of the voice to use for TTS
+    """
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
